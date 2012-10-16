@@ -7,17 +7,53 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path %> |
-  <%= link_to "Login", new_user_session_path %>
-<% end %>
-<%= yield %>
+<!--
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+-->
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand" href="#">Some Store</a>
+        <div class="nav-collapse">
+          <ul class="nav">
+            <li><%= link_to "Browse Products", products_path %></li>
+            <li><%= link_to "Price List" %></li>
+            <li><%= link_to "Contact Us" %></li>
+            <li><%= link_to "Cart" %></li>
+	    <% if user_signed_in? %>
+	      <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+	    <% else %>
+              <li><%= link_to "Sign up", new_user_registration_path %></li>
+  	      <li><%= link_to "Login", new_user_session_path %> </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 
+  <div class="container">
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+	<a class="close" data-dismiss="alert">x<a/>
+        <%= msg %>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="span9"> <%= yield %> </div>
+      <div class="span3"> 
+        <h2>About Us </h2>
+Indulge your creativity: Select a visual theme to decorate your homepage and drag and drop individual sections to rearrange the page however you'd like
+Focus on your interests: Pick and choose from thousands of Google Gadgets to add games, news, pictures, weather and more to your homepage, all for free
+Change your mind: Switch back and forth between your iGoogle page and Google's "Classic Homepage" through the link in the upper right-hand corner.
+      </div>
+    </div>
+  </div>
 </body>
 </html>
